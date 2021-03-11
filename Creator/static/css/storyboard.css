@@ -1,0 +1,27 @@
+div.Story_Title {
+    text-align: center;
+}
+label.Story_Title {
+    font-size: 30px;
+}
+input.Story_Title {
+    font-size: 30px;
+}
+p.Story_Title {
+    font-size: 20px
+}
+
+div.Button_Bar {
+    border-style: double;
+}
+
+div.description {
+    text-align: center;
+}
+p.description {
+    font-size: 12px;
+}
+
+
+
+
