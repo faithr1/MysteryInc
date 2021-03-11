@@ -1,0 +1,4 @@
+run the server with python manage.py runserver
+open the server in it's own browser
+verify that clicking the new story button leads to new_story.html
+verify that clicking the load story button leads to load_story.html
