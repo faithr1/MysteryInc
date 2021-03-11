@@ -7,6 +7,7 @@ Testing: the test for this project so far is done manually by the user. This can
     using the steps below and creating an account/logging in.
 
 Run Steps:
+0) Before any steps first the user must install Django 3.1.7 and Python
 1) run the line "Pip install -r requirements.txt" in the terminal to download dependencies
 2) cd into the MysteryInc/loginPage/ directory
 3) run the line "python manage.py runserver" in the terminal to stand up web page
