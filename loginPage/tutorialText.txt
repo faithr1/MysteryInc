@@ -1,0 +1,3 @@
+Tutorial Text (This will appear in the popup box)
+
+Welcome to the Mystery Inc. Story Creator!
