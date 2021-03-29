@@ -17,9 +17,9 @@
           </div>
           <form action="{%url 'new_story'%}" method="post">
               {% csrf_token %}
-              <input type='submit' value='Create a new story'>
+              <input type='submit' id="tut" value='Create a new story' title="Start your own story from scratch">
           </form>
-          <form action="{%url 'load_story'%}" method="post">
+          <form action="{%url 'load_story'%}" method="post" title="Pick up where you left off on a current project">
               {% csrf_token %}
               <input type='submit' value='Continue a Story'>
           </form>
