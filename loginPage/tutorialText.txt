@@ -1,3 +1,16 @@
 Tutorial Text (This will appear in the popup box)
 
 Welcome to the Mystery Inc. Story Creator!
+
+This is here to help teach you the ropes on how to get around
+the site and set up your first story!
+
+Everything you'll need is on the row of buttons above. Each one
+is pretty self explanatory, but we'll run through all of them
+as well as everything else on this page for the utmost clarity.
+
+Title:  This is where you put in the name of your interactive
+        mystery story!
+
+Author: This is you! Make sure that this matches the account
+        name you used to sign in.
