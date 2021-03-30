@@ -12,8 +12,6 @@
         for the creator to view and alter when needed-->
 
     <div class="Story_Title">
-        <form id="input" name="myForm" enctype="text/plain" onsubmit="return false" action="{% url 'storyboard' %}" method="post">
-            {% csrf_token %}
         <label class="Story_Title"><b>Title:</b></label>
         <!--will need to alter its starting value when being able to start a previously
             created story-->
@@ -25,7 +23,6 @@
         <!--<input type="text" id="txt_1" onreset='saveValue(value);'/>-->
         <p class="Story_Title">Author:<u> {{ user.username }}</u></p>
 
-        </form>
     </div>
     <!------------------------------------------------------------------------------->
 
@@ -58,21 +55,6 @@
         </p>
 
     </div>
-
-<!--    <script>
-        $("textarea[name='description']").on("change", function() {
-            $.ajax({
-                url: /new_story/
-                method: 'POST',
-                data: {
-                    content: $(this).val(),
-                    csrfmiddlewaretoken: '{{ csrf_token }}'
-                }
-            }).done(function(msg) {
-                alert("Data saved");
-            })
-        });
-    </script>-->
 
     <!--Will hopefully be altered once clues can be added to the storyboard but for now
         it shall remain empty however it may prove useless depending on how clues are added-->
