@@ -31,4 +31,4 @@ Add Clue:    This allows you to add a clue to your story. Clues
              can be connected to one another that guide the player
              through your story in an attempt to solve the case!
 
-Help
+Help:        Uh, that's how you got here lol
