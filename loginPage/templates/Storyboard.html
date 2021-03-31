@@ -35,9 +35,13 @@
         <button onclick="save_story();">Save Story</button>
         <button onclick="load_story();">Load Story</button>
         <button onclick="add_clue();">Add Clue</button>
-
+        
     </div>
     <!------------------------------------------------------------------------------->
+    <form action="{%url 'display_clues'%}" method="post">
+        {% csrf_token %}
+        <input type='submit' value='Display Clues'>
+    </form>
 
     <div class="description">
 

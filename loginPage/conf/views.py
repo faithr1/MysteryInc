@@ -48,4 +48,11 @@ def storyboard(request):
     # else:
     #     raise Http404("Username does not match logged in user")
 
+# allows user to go back to the Storyboard editor from the visually displayed clues page
+def return_to_editor(request):
+   return render(request, 'Storyboard.html', context={})
+
+def display_clues(request):
+    return render(request, 'display_clues.html', context={})
+
 

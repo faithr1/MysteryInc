@@ -30,5 +30,7 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('new_story/', views.new_story, name="new_story"),
     path('load_story/', views.load_story, name="load_story"),
-    path('storycreator/', views.storyboard, name="storyboard")
+    path('storycreator/', views.storyboard, name="storyboard"),
+    path('display_clues/', views.display_clues, name="display_clues"),
+    path('return_to_editor/', views.return_to_editor, name="return_to_editor")
 ]
