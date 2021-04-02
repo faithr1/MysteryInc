@@ -23,13 +23,13 @@ class MySeleniumTests(StaticLiveServerTestCase):
         pass_input.clear()
         id_input.send_keys('johnDoe1')
         pass_input.send_keys('flowerCats')
-        time.sleep(2)  # Wait 2 secs
+        time.sleep(1)  # Wait 2 secs
         self.selenium.find_element_by_id('loginButton').click() #click sign up
-        time.sleep(2)  # Wait 2 secs
+        time.sleep(1)  # Wait 2 secs
 
         #enter signup page
         self.selenium.find_element_by_id('signupButton').click() #test signup button
-        time.sleep(2)  # Wait 2 secs
+        time.sleep(1)  # Wait 2 secs
 
         #attempt inputing an invalid username
         id_input = self.selenium.find_element_by_id('id_username') #set id_input var
@@ -39,7 +39,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         pass1_input.send_keys('Flowers1234')
         pass2_input.send_keys('Flowers1234')
         self.selenium.find_element_by_id('submitButton').click() #click sign up
-        time.sleep(2)  # Wait 2 secs
+        time.sleep(1)  # Wait 2 secs
         
         #attempt inputing a common password
         id_input = self.selenium.find_element_by_id('id_username') #set id_input var
@@ -50,7 +50,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         pass1_input.send_keys('Password123')
         pass2_input.send_keys('Password123')
         self.selenium.find_element_by_id('submitButton').click() #click sign up
-        time.sleep(2)  # Wait 2 secs
+        time.sleep(1)  # Wait 2 secs
         
         #attempt inputing an invalid password
         id_input = self.selenium.find_element_by_id('id_username') #set id_input var
@@ -61,7 +61,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         pass1_input.send_keys('123456789')
         pass2_input.send_keys('123456789')
         self.selenium.find_element_by_id('submitButton').click() #click sign up
-        time.sleep(2)  # Wait 2 secs
+        time.sleep(1)  # Wait 2 secs
         
         #attempt inputing an invalid password
         id_input = self.selenium.find_element_by_id('id_username') #set id_input var
@@ -72,13 +72,13 @@ class MySeleniumTests(StaticLiveServerTestCase):
         pass1_input.send_keys('flowerCats')
         pass2_input.send_keys('flowerCats')
         self.selenium.find_element_by_id('submitButton').click() #click sign up
-        time.sleep(2)  # Wait 2 secs
+        time.sleep(1)  # Wait 2 secs
         
         #test continue and return buttons
         self.selenium.find_element_by_id('continueButton').click() #continue to create page
-        time.sleep(2) #wait 2 secs
-        self.selenium.find_element_by_id('returnHomeButton').click() #continue to create page
-        time.sleep(2)
+        time.sleep(1) #wait 2 secs
+        self.selenium.find_element_by_id('returnHomeButton').click() #return home from create page
+        time.sleep(1)
         
         #test using the new login
         self.selenium.switch_to.alert.accept()
@@ -90,9 +90,10 @@ class MySeleniumTests(StaticLiveServerTestCase):
         pass_input.clear()
         id_input.send_keys('johnDoe1')
         pass_input.send_keys('flowerCats')
-        time.sleep(2)  # Wait 2 secs
+        time.sleep(1)  # Wait 2 secs
         self.selenium.find_element_by_id('loginButton').click() #click sign up
-        time.sleep(2)
+        time.sleep(1)
+        self.selenium.find_element_by_id('continueButton').click() #continue to create page
 
         # Sets the title and synopsis values to a default allowing for visual on
         # if they are saved on refresh
