@@ -28,7 +28,13 @@ urlpatterns = [
     path('accounts/login/', views.login, name='login'),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('signup/', views.signup, name='signup'),
+    path('signout/',views.signout,name='signout'),
     path('new_story/', views.new_story, name="new_story"),
     path('load_story/', views.load_story, name="load_story"),
-    path('storycreator/', views.storyboard, name="storyboard")
+    path('storycreator/', views.storyboard, name="storyboard"),
+    path('addclue/', views.add_clue, name="add_clue"),
+    path('removeclue/', views.remove_clue, name="remove_clue"),
+    path('refresh/', views.refresh_story, name="refresh_story"),
+    path('display_clues/', views.display_clues, name="display_clues"),
+    path('return_to_editor/', views.return_to_editor, name="return_to_editor")
 ]
