@@ -1,0 +1,32 @@
+Welcome to the Mystery Inc. Story Creator!
+
+This is here to help teach you the ropes on how to get around
+the site and set up your first story!
+
+Everything you'll need is on the row of buttons above. Each one
+is pretty self explanatory, but we'll run through all of them
+as well as everything else on this page for the utmost clarity.
+
+Title:       This is where you put in the name of your interactive
+             mystery story!
+
+Author:      This is you! Make sure that this matches the account
+             name you used to sign in.
+
+Return Home: If you want to leave the Story Creator page. Don't
+             forget to save beforehand!
+
+New Story:   If you would like to start a brand new story. Make
+             sure to save your current project beforehand.
+
+Save Story:  Saves your current story as a txt file in your
+             computer (tentative and subject to change)
+
+Load Story:  Saves your current story as a txt file in your
+             computer (tentative and subject to change)
+
+Add Clue:    This allows you to add a clue to your story. Clues
+             can be connected to one another that guide the player
+             through your story in an attempt to solve the case!
+
+Help:        Uh, that's how you got here lol

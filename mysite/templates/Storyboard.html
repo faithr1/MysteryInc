@@ -61,6 +61,25 @@
         div.main {
             margin-top:130px;
         }
+        /* what the background should look like. mostly darkens */
+        div.bg-modal {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            position: absolute;
+            top:0;
+            display: flex;
+            justify-content:center;
+            align-items: center;
+            display: none;
+        }
+        /* the actual box */
+        div.modal-content {
+            width: 500px;
+            height: 100px;
+            background-color: white;
+            border-radius: 4px;
+        }
 
 
     </style>
@@ -167,6 +186,17 @@
         }
         ////////////////////////////////////////////////////////////////////////////////
 
+        //clicking on the help button should make the hidden popup box appear and
+        //disappear on click (still working on this)
+        function need_help() {
+            document.getElementById('help').addEventListener('click', function () {
+            document.querySelector('.bg-modal').style.display = 'flex';
+        });
+
+}
+
+        ////////////////////////////////////////////////////////////////////////////////
+
     </script>
 
     <!------------------------------------------------------------------------>
@@ -218,14 +248,15 @@
             (unimplemented), and adding a new clue to the story board(unimplemented)-->
         <div class="Button_Bar">
 
-            <button id="returnHomeButton" onclick="return_to_home();" type="button">Return Home</button>
-            <button id="new_story" onclick="start_new_story();" type="button">New Story</button>
-            <button id="save" onclick="save_story();" type="button">Save Story</button>
-            <button id="load" onclick="load_story();" type="button">Load Story</button>
-            <button id="add" onclick="add_clue();" type="button">Add Clue</button>
-            <button id="remove" onclick="remove_clue();" type="button">Remove Clue</button>
-            <button id="refresh" onclick="refresh_story();" type="button">Refresh Story</button>
-            <button id="display_clues" onclick="display_clues();" type="button">Display Clues</button>
+            <button id="returnHomeButton" onclick="return_to_home();" type="button" title="Return back to the home page">Return Home</button>
+            <button id="new_story" onclick="start_new_story();" type="button" title="Start a new story">New Story</button>
+            <button id="save" onclick="save_story();" type="button" title="Save your current story">Save Story</button>
+            <button id="load" onclick="load_story();" type="button" title="Load in a previous story">Load Story</button>
+            <button id="add" onclick="add_clue();" type="button" title="Add a clue to this story">Add Clue</button>
+            <button id="remove" onclick="remove_clue();" type="button" title="Remove a clue from this story">Remove Clue</button>
+            <button id="refresh" onclick="refresh_story();" type="button" title="Refresh your story">Refresh Story</button>
+            <button id="display_clues" onclick="display_clues();" type="button" title="Display the clues to your story">Display Clues</button>
+            <button id="help" onclick="need_help();" type="button" title="Need help? Click here!">Help</button>
 
         </div>
         <!------------------------------------------------------------------------------->
@@ -246,6 +277,15 @@
                     500 character limit for synopsis</br>
                     1000 character limit for clues
                 </p>
+
+            </div>
+
+            <!--Modal Section (For PopUp box) -->
+            <div class="bg-modal">
+                <div class="modal-content">
+
+
+                </div>
 
             </div>
 
