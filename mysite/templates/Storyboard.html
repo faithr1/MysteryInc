@@ -196,13 +196,16 @@
         ////////////////////////////////////////////////////////////////////////////////
 
         //clicking on the help button should make the hidden popup box appear and
-        //disappear on click (still working on this)
+        //disappear on click (untested and can't check because i can't run the server still)
         function need_help() {
             document.getElementById('help').addEventListener('click', function () {
-            document.querySelector('.bg-modal').style.display = 'flex';
-        });
+                document.querySelector('.bg-modal').style.display = 'flex';
+            });
 
-}
+            document.querySelector('.close').addEventListener('click', function(){
+                document.querySelector('.bg-modal').style.display = 'none';
+            });
+        }
 
         ////////////////////////////////////////////////////////////////////////////////
 
