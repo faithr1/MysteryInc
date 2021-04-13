@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-
+from models import story
 # These objects will need to be transformed into models later on
 # but as of right now they work since no information is being saved
 # to the database in regards to the story
@@ -70,7 +70,13 @@ def new_story(request):
    
 def load_story(request):
     return HttpResponseRedirect(reverse('storyboard'))
-
+def save_story(request):
+    s=story(title=temp_story.title,synopsis=temp_story.synopsis,clue_amount=temp_story.clue_amount)
+    s.Clues.clear
+    for clue in temp_story.Clues:
+        s.Clues.append(clue)
+    s.save()
+    return HttpResponseRedirect(reverse('storyboard'))
 def storyboard(request):
         return render(request, 'Storyboard.html', context={'title': temp_story.title, 'synopsis': temp_story.synopsis,
                                                        'clues': temp_story.Clues})
