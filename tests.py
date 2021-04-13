@@ -9,3 +9,7 @@ time.sleep(2)  # Wait 2 secs
 #test help button
 self.selenium.find_element_by_id('help').click() #create pop-up box (currently fails)
 time.sleep(2) #wait 2 secs
+
+#close the pop-up game
+self.selenium.find_element_by_class_name('close').click()
+time.sleep(2) #wait 2 seconds
