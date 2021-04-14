@@ -33,7 +33,9 @@ Remove Clue:     If you have a clue that you no longer want or need,
                  then you can remove it with this button. This action
                  is irreversible, so make sure you're absolutely sure.
 
-Refresh:         Description
+Refresh:         Assuming this just refreshes the page to show was is
+                 what's currently still there and what not? (confirm
+                 this)
 
 Display Clues:   This takes you to a page filled with all of the connections
                  you've made between your clues (add more once I actually
