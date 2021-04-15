@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from models import story
+from conf.models import story
 # These objects will need to be transformed into models later on
 # but as of right now they work since no information is being saved
 # to the database in regards to the story
@@ -71,12 +71,28 @@ def new_story(request):
 def load_story(request):
     return HttpResponseRedirect(reverse('storyboard'))
 def save_story(request):
+    if request.method == 'POST':
+
+        # Accesses the temp story add inserts a blank clue to the end of the clue list that is not connected to any clue
+        # while increasing the clue counter in the story
+        global temp_story
+
+        temp_story.title = request.POST['title']
+        temp_story.synopsis = request.POST['synopsis']
+        ######################################################################
+
+        # Reads in the contents of existing clues in the storyboard and stores the content to the stories clues list
+        for x in temp_story.Clues:
+            x.clue_text = request.POST['clue' + str(x.clue_num) + '_text']
+            x.clue_img_url = request.POST['clue' + str(x.clue_num) + '_img_url']
+        ######################################################################
+    #create a story object with the title,synopis, and clue amounts from the temp_story
     s=story(title=temp_story.title,synopsis=temp_story.synopsis,clue_amount=temp_story.clue_amount)
-    s.Clues.clear
-    for clue in temp_story.Clues:
-        s.Clues.append(clue)
+    # s.Clues.clear
+    # for clue in temp_story.Clues:
+    #     s.Clues.append(clue)
     s.save()
-    return HttpResponseRedirect(reverse('storyboard'))
+    return HttpResponseRedirect(reverse('refresh_story'))
 def storyboard(request):
         return render(request, 'Storyboard.html', context={'title': temp_story.title, 'synopsis': temp_story.synopsis,
                                                        'clues': temp_story.Clues})
