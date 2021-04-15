@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from conf.models import story
+from conf.models import DB_Story
 # These objects will need to be transformed into models later on
 # but as of right now they work since no information is being saved
 # to the database in regards to the story
@@ -87,10 +87,12 @@ def save_story(request):
             x.clue_img_url = request.POST['clue' + str(x.clue_num) + '_img_url']
         ######################################################################
     #create a story object with the title,synopis, and clue amounts from the temp_story
-    s=story(title=temp_story.title,synopsis=temp_story.synopsis,clue_amount=temp_story.clue_amount)
+    s=DB_Story(title=temp_story.title,synopsis=temp_story.synopsis,clue_amount=temp_story.clue_amount)
+    # s.author={{user.username}}
     # s.Clues.clear
     # for clue in temp_story.Clues:
     #     s.Clues.append(clue)
+    # s.author=get_user(request).username
     s.save()
     return HttpResponseRedirect(reverse('refresh_story'))
 def storyboard(request):
