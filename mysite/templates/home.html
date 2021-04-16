@@ -29,7 +29,7 @@
           <form action="{%url 'new_story'%}" method="post">
               {% csrf_token %}
 
-              <input type='submit' value='Create a new story' id="submitButton">
+              <input type='submit' value='Create a new story' id="newStoryButton">
           </form>
           <form action="{%url 'load_story'%}" method="post">
               {% csrf_token %}

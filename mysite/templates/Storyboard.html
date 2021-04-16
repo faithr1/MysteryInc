@@ -106,8 +106,9 @@
         // users account
         function save_story() {
 
-            alert("You're attempting to save, sorry but that's not implemented yet " +
-                  "so have fun memorizing all your progress!!");
+            document.story.action="{% url 'save_story' %}";
+
+            document.getElementById("story").submit();
 
         }
         ////////////////////////////////////////////////////////////////////////////////
@@ -206,7 +207,7 @@
                    id = "title"
                    name = "title"
                    value = "{{title}}"
-                   maxlength = "20"
+                   maxlength = "35"
                    autocomplete="off"/>
             <p class="Story_Title">Author:<u> {{ user.username }}</u></p>
 
@@ -217,10 +218,9 @@
             story(partially completed), saving a story(unimplemented), loading a story
             (unimplemented), and adding a new clue to the story board(unimplemented)-->
         <div class="Button_Bar">
-
             <button id="returnHomeButton" onclick="return_to_home();" type="button">Return Home</button>
             <button id="new_story" onclick="start_new_story();" type="button">New Story</button>
-            <button id="save" onclick="save_story();" type="button">Save Story</button>
+            <button id="save" type="button" onclick="save_story()">Save Story</button>
             <button id="load" onclick="load_story();" type="button">Load Story</button>
             <button id="add" onclick="add_clue();" type="button">Add Clue</button>
             <button id="remove" onclick="remove_clue();" type="button">Remove Clue</button>
@@ -235,12 +235,13 @@
 
                 <h2 class="description">Synopsis</h2>
 
+
                     <textarea class = "synopsis"
                               id = "synopsis"
                               name = "synopsis"
                               rows = "6"
                               cols = "100"
-                              maxlength = "500">{{synopsis}}</textarea>
+                              maxlength = "600">{{synopsis}}</textarea>
 
                 <p class="description">
                     500 character limit for synopsis</br>
