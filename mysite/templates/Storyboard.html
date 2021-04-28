@@ -1,306 +1,304 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+    <head>
+        <meta charset="UTF-8">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        <title>Storyboard</title>
+    </head>
+    <body class="d-flex h-100 text-white bg-dark">
+        <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
 
-    <!--This is temporary since the links are no longer working will try and
+            <!--This is temporary since the links are no longer working will try and
         fix this later-->
 
-    <style>
+            <style>
 
-        div.Story_Title {
-            text-align: center;
-        }
-        label.Story_Title {
-            font-size: 30px;
-        }
-        input.Story_Title {
-            font-size: 30px;
-        }
-        p.Story_Title {
-            font-size: 20px
-        }
+                div.Story_Title {
+                    text-align: center;
+                }
+                label.Story_Title {
+                    font-size: 30px;
+                }
+                input.Story_Title {
+                    font-size: 30px;
+                }
+                p.Story_Title {
+                    font-size: 20px
+                }
 
-        div.Button_Bar {
-            border-style: double;
-        }
+                div.Button_Bar {
+                    border-style: double;
+                }
 
-        div.description {
-            text-align: center;
-        }
-        p.description {
-            font-size: 12px;
-        }
-        textarea.synopsis {
-            resize: none;
-        }
+                div.description {
+                    text-align: center;
+                }
+                p.description {
+                    font-size: 12px;
+                }
+                textarea.synopsis {
+                    resize: none;
+                }
 
-        textarea.clue_list {
-            resize: none;
-        }
+                textarea.clue_list {
+                    resize: none;
+                }
 
-        .clue_img {
-            transition: transform .2s;
-        }
+                .clue_img {
+                    transition: transform .2s;
+                }
 
-        .clue_img:hover {
-            transform: scale(2);
-        }
+                .clue_img:hover {
+                    transform: scale(2);
+                }
 
-        div.Story_Title {
-            background-color: white;
-            top: 0px;
-            width: 100%;
-            position: fixed;
-        }
-        div.Button_Bar {
-            background-color: white;
-            top: 95px;
-            width: 100%;
-            position: fixed;
-        }
-        div.main {
-            margin-top:130px;
-        }
-        /* what the background should look like. mostly darkens */
-        div.bg-modal {
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            position: absolute;
-            top:0;
-            display: flex;
-            justify-content:center;
-            align-items: center;
-            display: none;
-        }
-        /* the actual box */
-        div.modal-content {
-            width: 700px;
-            height: 500px;
-            background-color: white;
-            border-radius: 4px;
-        }
-         /*close button for the modal*/
-         .close{
-            position: absolute;
-            top: 0;
-            right: 13px;
-            font-size: 40px;
-            transform: rotate(45deg);
-            cursor: pointer;
-            color: white;
-         }
+                div.Story_Title {
+                    top: 0px;
+                    width: 100%;
+                    position: fixed;
+                }
+                div.Button_Bar {
+                    top: 95px;
+                    width: fit-content;
+                    position: fixed;
+                }
+                div.main {
+                    margin-top:130px;
+                }
+                /* what the background should look like. mostly darkens */
+                div.bg-modal {
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.7);
+                    position: absolute;
+                    top:0;
+                    display: flex;
+                    justify-content:center;
+                    align-items: center;
+                    display: none;
+                }
+                /* the actual box */
+                div.modal-content {
+                    width: 700px;
+                    height: 500px;
+                    background-color: white;
+                    border-radius: 4px;
+                }
+                /*close button for the modal*/
+                 .close{
+                    position: absolute;
+                    top: 0;
+                    right: 13px;
+                    font-size: 40px;
+                    transform: rotate(45deg);
+                    cursor: pointer;
+                    color: black;
+                 }
 
-         /*making a scroll*/
-         div.scroll {
-            overflow: auto;
-            border: 1px black;
-            background-color: white;
-            width: 700px;
-            height:500px;
-         }
+                /*making a scroll*/
+                 div.scroll {
+                    overflow: auto;
+                    border: 1px black;
+                    background-color: grey;
+                    width: 700px;
+                    height:500px;
+                 }
+            </style>
 
+            <script>
 
-    </style>
+                // This function will take the user back to their homepage without saving
+                // their progress on the current story thus all progress will be lost
+                // will gain functionality once other pages are added into the same project
+                // and function properly
+                function return_to_home() {
 
-    <script>
+                    if(confirm("Are you sure you wish to return to the home screen? You will lose " +
+                               "all unsaved progress on current story.")) {
 
-        // This function will take the user back to their homepage without saving
-        // their progress on the current story thus all progress will be lost
-        // will gain functionality once other pages are added into the same project
-        // and function properly
-        function return_to_home() {
+                        location.replace("{%url 'home'%}");
 
-            if(confirm("Are you sure you wish to return to the home screen? You will lose " +
-                       "all unsaved progress on current story.")) {
+                    }
 
-                location.replace("{%url 'home'%}");
+                }
+                ////////////////////////////////////////////////////////////////////////////////
 
-            }
+                // This function will create a new story by clearing all attributes on the
+                // storyboard such as its title,synopsis, and clues (Currently clues cannot be
+                // added thus they removal shall be added later once added remove this comment
+                // section)
+                function start_new_story() {
 
-        }
-        ////////////////////////////////////////////////////////////////////////////////
+                    // Confirms if the user means to start a new story before clearing the storyboard
+                    if(confirm("Are you sure you wish to start a new story? You will lose " +
+                               "all unsaved progress on current story.")) {
 
-        // This function will create a new story by clearing all attributes on the
-        // storyboard such as its title,synopsis, and clues (Currently clues cannot be
-        // added thus they removal shall be added later once added remove this comment
-        // section)
-        function start_new_story() {
+                        //redirects to new_story view and performs actions there
+                        location.replace("{%url 'new_story'%}");
 
-            // Confirms if the user means to start a new story before clearing the storyboard
-            if(confirm("Are you sure you wish to start a new story? You will lose " +
-                       "all unsaved progress on current story.")) {
+                    }
 
-                //redirects to new_story view and performs actions there
-                location.replace("{%url 'new_story'%}");
+                }
+                ////////////////////////////////////////////////////////////////////////////////
 
-            }
+                // Shall take all the information stored within the storyboard and save it
+                // either to a text file on the users PC or to the database linked to the
+                // users account
+                function save_story() {
 
-        }
-        ////////////////////////////////////////////////////////////////////////////////
+                    alert("You're attempting to save, sorry but that's not implemented yet " +
+                          "so have fun memorizing all your progress!!");
 
-        // Shall take all the information stored within the storyboard and save it
-        // either to a text file on the users PC or to the database linked to the
-        // users account
-        function save_story() {
+                }
+                ////////////////////////////////////////////////////////////////////////////////
 
-            alert("You're attempting to save, sorry but that's not implemented yet " +
-                  "so have fun memorizing all your progress!!");
+                // Shall read in information from a selected story and propagate the storyboard
+                // with its information not sure if it will try to read from the database thus
+                // providing a list of stories or asking for the stories name or load in from a
+                // text file that is stored on the users PC
+                function load_story() {
 
-        }
-        ////////////////////////////////////////////////////////////////////////////////
+                    alert("You're attempting to load in a previously created story, sorry but " +
+                          "that's not implemented yet so have fun typing it all out again!!");
 
-        // Shall read in information from a selected story and propagate the storyboard
-        // with its information not sure if it will try to read from the database thus
-        // providing a list of stories or asking for the stories name or load in from a
-        // text file that is stored on the users PC
-        function load_story() {
+                }
+                ////////////////////////////////////////////////////////////////////////////////
 
-            alert("You're attempting to load in a previously created story, sorry but " +
-                  "that's not implemented yet so have fun typing it all out again!!");
+                // Shall add a clue to the storyboard without clearing any of the information that
+                // already exists within the storyboard will be implemented after clue objects have
+                // been properly created
+                function add_clue() {
 
-        }
-        ////////////////////////////////////////////////////////////////////////////////
-
-        // Shall add a clue to the storyboard without clearing any of the information that
-        // already exists within the storyboard will be implemented after clue objects have
-        // been properly created
-        function add_clue() {
-
-        //    alert("You're attempting to add a clue to the storyboard, sorry but that's " +
-        //          "not implemented yet so have fun with the synopsis!!");
+                //    alert("You're attempting to add a clue to the storyboard, sorry but that's " +
+                //          "not implemented yet so have fun with the synopsis!!");
 
 
-            document.story.action="{% url 'add_clue' %}";
+                    document.story.action="{% url 'add_clue' %}";
 
-            document.getElementById("story").submit();
+                    document.getElementById("story").submit();
 
-        }
-        ////////////////////////////////////////////////////////////////////////////////
+                }
+                ////////////////////////////////////////////////////////////////////////////////
 
-        //Shall remove all the marked clues from the storyboard along with lowering their clue
-        //number after a confirmation message
-        function remove_clue() {
+                //Shall remove all the marked clues from the storyboard along with lowering their clue
+                //number after a confirmation message
+                function remove_clue() {
 
-            if(confirm("Are you sure that you wish to remove the selected clues" +
-               "? This action cannot be reversed once done.")) {
+                    if(confirm("Are you sure that you wish to remove the selected clues" +
+                       "? This action cannot be reversed once done.")) {
 
-                document.story.action="{% url 'remove_clue' %}";
+                        document.story.action="{% url 'remove_clue' %}";
 
-                document.getElementById("story").submit();
+                        document.getElementById("story").submit();
 
-            }
+                    }
 
-        }
-        ////////////////////////////////////////////////////////////////////////////////
+                }
+                ////////////////////////////////////////////////////////////////////////////////
 
-        //Refreshes the storyboard so that any added images are made visible after the url
-        //has been entered
-        function refresh_story() {
+                //Refreshes the storyboard so that any added images are made visible after the url
+                //has been entered
+                function refresh_story() {
 
-            document.story.action="{% url 'refresh_story' %}";
+                    document.story.action="{% url 'refresh_story' %}";
 
-            document.getElementById("story").submit();
+                    document.getElementById("story").submit();
 
-        }
-        ////////////////////////////////////////////////////////////////////////////////
+                }
+                ////////////////////////////////////////////////////////////////////////////////
 
-        //clicking on the help button should make the hidden popup box appear and
-        //disappear on click (untested and can't check because i can't run the server still)
-        function need_help() {
-            document.getElementById('help').addEventListener('click', function () {
-                document.querySelector('.bg-modal').style.display = 'flex';
-            });
+                //clicking on the help button should make the hidden popup box appear and
+                //disappear on click (untested and can't check because i can't run the server still)
+                function need_help() {
+                    document.getElementById('help').addEventListener('click', function () {
+                        document.querySelector('.bg-modal').style.display = 'flex';
+                    });
 
-            document.querySelector('.close').addEventListener('click', function(){
-                document.querySelector('.bg-modal').style.display = 'none';
-            });
-        }
+                    document.querySelector('.close').addEventListener('click', function(){
+                        document.querySelector('.bg-modal').style.display = 'none';
+                    });
+                }
 
-        ////////////////////////////////////////////////////////////////////////////////
+                ////////////////////////////////////////////////////////////////////////////////
 
-    </script>
+            </script>
 
-    <!------------------------------------------------------------------------>
+            <!------------------------------------------------------------------------>
 
-    <meta charset="UTF-8">
-    <title>Storyboard</title>
-    <!--These links are no longer working they worked previously on 3/29/21 however on
+            <!--These links are no longer working they worked previously on 3/29/21 however on
         3/30/21 when the data in the links was altered no changes were noticed by the webpage
         these changes were then removed and files restored to previous working version and on
         3/31/21 the links failed to work entirely leading to the info being moved into the html file-->
-<!--    <link rel="stylesheet" type="text/css" href="../../static/css/storyboard.css">
+            <!--    <link rel="stylesheet" type="text/css" href="../../static/css/storyboard.css">
     <script src="../../static/js/storyboard.js"></script>
 -->
-</head>
-<body>
 
-  <form method="post" style="text-align: right;">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <!-- Logout Button, redirects to the login page after logging out the user-->
-        <a href="{% url 'signout'%}"><button type="button" class="btn btn-default" id='logoutButton'>Log Out</button></a>
-    </form>
+            <form method="post" style="text-align: right;">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <!-- Logout Button, redirects to the login page after logging out the user-->
+                <a href="{% url 'signout'%}"><button type="button" class="btn btn-default" id='logoutButton'>Log Out</button></a>
+            </form>
   
-    <form id="story" name="story" method="post" onsubmit="return false;">
+            <form id="story" name="story" method="post" onsubmit="return false;">
 
-        {% csrf_token %}
+                {% csrf_token %}
 
-        <!--This section displays the stories title(editable) and author(non-editable)
-            for the creator to view and alter when needed-->
-        <div class="Story_Title">
+                <!--This section displays the stories title(editable) and author(non-editable)
+                    for the creator to view and alter when needed-->
+                <div class="Story_Title">
 
-            <label class="Story_Title"><b>Title:</b></label>
-            <!--will need to alter its starting value when being able to start a previously
-                created story-->
-            <input class="Story_Title"
-                   type = "text"
-                   id = "title"
-                   name = "title"
-                   value = "{{title}}"
-                   maxlength = "20"
-                   autocomplete="off"/>
-            <p class="Story_Title">Author:<u> {{ user.username }}</u></p>
+                    <label class="Story_Title"><b>Title:</b></label>
+                    <!--will need to alter its starting value when being able to start a previously
+                        created story-->
+                    <input class="Story_Title"
+                           type = "text"
+                           id = "title"
+                           name = "title"
+                           value = "{{title}}"
+                           maxlength = "20"
+                           autocomplete="off"/>
+                    <p class="Story_Title">Author:<u> {{ user.username }}</u></p>
 
-        </div>
+                </div>
         <!------------------------------------------------------------------------------->
 
         <!--This section contains the action buttons allowing for the creation of a new
             story(partially completed), saving a story(unimplemented), loading a story
             (unimplemented), and adding a new clue to the story board(unimplemented)-->
-        <div class="Button_Bar">
+                <div class="Button_Bar">
 
-            <button id="returnHomeButton" onclick="return_to_home();" type="button" title="Return back to the home page">Return Home</button>
-            <button id="new_story" onclick="start_new_story();" type="button" title="Start a new story">New Story</button>
-            <button id="save" onclick="save_story();" type="button" title="Save your current story">Save Story</button>
-            <button id="load" onclick="load_story();" type="button" title="Load in a previous story">Load Story</button>
-            <button id="add" onclick="add_clue();" type="button" title="Add a clue to this story">Add Clue</button>
-            <button id="remove" onclick="remove_clue();" type="button" title="Remove a clue from this story">Remove Clue</button>
-            <button id="refresh" onclick="refresh_story();" type="button" title="Refresh your story">Refresh Story</button>
-            <button id="display_clues" onclick="display_clues();" type="button" title="Display the clues to your story">Display Clues</button>
-            <button id="help" onclick="need_help();" type="button" title="Need help? Click here!">Help</button>
+                    <button id="returnHomeButton" onclick="return_to_home();" type="button" title="Return back to the home page">Return Home</button>
+                    <button id="new_story" onclick="start_new_story();" type="button" title="Start a new story">New Story</button>
+                    <button id="save" onclick="save_story();" type="button" title="Save your current story">Save Story</button>
+                    <button id="load" onclick="load_story();" type="button" title="Load in a previous story">Load Story</button>
+                    <button id="add" onclick="add_clue();" type="button" title="Add a clue to this story">Add Clue</button>
+                    <button id="remove" onclick="remove_clue();" type="button" title="Remove a clue from this story">Remove Clue</button>
+                    <button id="refresh" onclick="refresh_story();" type="button" title="Refresh your story">Refresh Story</button>
+                    <button id="display_clues" onclick="display_clues();" type="button" title="Display the clues to your story">Display Clues</button>
+                    <button id="help" onclick="need_help();" type="button" title="Need help? Click here!">Help</button>
 
-        </div>
+                </div>
         <!------------------------------------------------------------------------------->
         
-        <div class="main">
-            <div class="description">
+                <div class="main">
+                    <div class="description">
 
-                <h2 class="description">Synopsis</h2>
+                        <h2 class="description">Synopsis</h2>
 
-                    <textarea class = "synopsis"
-                              id = "synopsis"
-                              name = "synopsis"
-                              rows = "6"
-                              cols = "100"
-                              maxlength = "500">{{synopsis}}</textarea>
+                            <textarea class = "synopsis"
+                                      id = "synopsis"
+                                      name = "synopsis"
+                                      rows = "6"
+                                      cols = "100"
+                                      maxlength = "500">{{synopsis}}</textarea>
 
-                <p class="description">
-                    500 character limit for synopsis</br>
-                    1000 character limit for clues
-                </p>
+                        <p class="description">
+                            500 character limit for synopsis</br>
+                            1000 character limit for clues
+                        </p>
 
-            </div>
+                    </div>
 
             <!--Modal Section (For PopUp box) -->
             <div class="bg-modal">
@@ -393,6 +391,8 @@
             <!------------------------------------------------------------------------------->
 
         </div>
-    </form>
-</body>
+            </form>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    </body>
 </html>
