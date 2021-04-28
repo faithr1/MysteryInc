@@ -7,9 +7,13 @@ self.selenium.get('http://127.0.0.1:8000/new_story/')
 time.sleep(2)  # Wait 2 secs
 
 #test help button
-self.selenium.find_element_by_id('help').click() #create pop-up box (currently fails)
+self.selenium.find_element_by_id('help').click() #create pop-up box
+self.selenium.find_element_by_id('help').click()
 time.sleep(2) #wait 2 secs
 
 #close the pop-up box
 self.selenium.find_element_by_class_name('close').click()
 time.sleep(2) #wait 2 seconds
+
+#checking if the function returned true after opening and closing pop up box
+self.assertTrue(need_help(), 0)
