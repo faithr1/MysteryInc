@@ -21,11 +21,6 @@
             location.replace("{%url 'return_to_editor'%}");
         }
 
-        function display_clues_on_page() {
-
-            document.story.action="{% url 'display_clues_on_page' %}";
-
-        }
 
     </script>
     <meta charset="UTF-8">
@@ -56,7 +51,6 @@
     <!-- for now, only holds the button to return to the editor. Can hold more later-->
     <div class="Button_Bar">
         <button id="returnToEditor" onclick="return_to_editor();" type="button">Return to Storyboard Editor</button>
-        <!--<button id="displayOnPage" onclick="display_clues_on_page();" type="button">Display Clues</button>-->
     </div>
 
     <!-- hopefully will loop through all of the clues and display their relevant information-->
@@ -82,6 +76,41 @@
                 <!-- display number of parents -->
                 <b>Number of Parent Clues: {{clue.num_parents}}</b>
 
+            </p>
+
+        {% endfor %}
+
+    </div>
+
+    <div class="Child_Clue_List">
+
+        </br>
+        </br>
+        </br>
+
+        <p style= 'clear: both'>
+            <b>List of Clue Connections:</b>
+            </br>
+        </p>
+        
+
+        {% for clue in clues %}
+
+            <p style='padding:6px; color: black; background-color: white; border: black 2px solid; width: 600 px; border-radius: 20px; float: left; clear: both'>
+
+                <!-- display clue id number-->
+                <b>Clue ID: {{clue.clue_id}}</b>
+
+                </br>
+
+                <!-- display clue text -->
+                <b>Child Clues: </b>
+                {% for child_clue_id in clue.child_clue_ids %}
+
+                    <b>ID #: {{child_clue_id}}</b>
+                    </br>
+                {% endfor %}
+                
             </p>
 
         {% endfor %}

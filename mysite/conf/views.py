@@ -17,6 +17,7 @@ class Clue:
     clue_img_url = ''
     parent_clues = [] # list of the actual clues
     parent_clue_ids = [] # list of parent id numbers
+    child_clue_ids = []
     num_parents = 0
     clue_id = 0 # clue id, never changes after initial creation (not updated ever for easy identification)
 
@@ -311,17 +312,21 @@ def return_to_editor(request):
 
 # allows user to access visual clues page
 def display_clues(request):
+
+    if request.method == 'POST':
+        
+        # determine the child clue ids
+        for parent_clue in temp_story.Clues:
+
+            # make sure ids are not in there twice
+            parent_clue.child_clue_ids = []
+
+            # check each clue in the story to see if it is a child clue of the parent
+            for child_clue in temp_story.Clues:
+
+                # add it to the list of child clues if it is one
+                if (parent_clue.clue_id in child_clue.parent_clue_ids):
+                    parent_clue.child_clue_ids.append(child_clue.clue_id)
+
     return render(request, 'display_clues.html', context={'title': temp_story.title, 'synopsis': temp_story.synopsis,
                                                        'clues': temp_story.Clues})
-
-# actually display the clues as they are on the page
-# umm this should be fun
-def display_clues_on_page(request):
-
-    for x in temp_story.Clues:
-        x.clue_text = request.POST['clue' + str(x.clue_num) + '_text']
-        x.clue_img_url = request.POST['clue' + str(x.clue_num) + '_img_url']
-
-    return HttpResponseRedirect(reverse('display_clues'))
-
-
