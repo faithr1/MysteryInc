@@ -105,7 +105,8 @@
 
                 <!-- display clue text -->
                 <b>Child Clues: </b>
-                {% for child_clue_id in clue.child_clue_ids %}
+                </br>
+                {% for child_clue_id in clue.parent_clue_ids %}
 
                     <b>ID #: {{child_clue_id}}</b>
                     </br>

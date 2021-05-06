@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from .models import Clue as DBClue
 from .models import Story as DBStory
+from django.db import models
 import json
 
 
@@ -15,12 +16,11 @@ class Clue:
     clue_num = 0 # actual clue number seen by user
     clue_text = ''
     clue_img_url = ''
-    parent_clues = [] # list of the actual clues
+    parent_clues = '' # list of the actual clues
     parent_clue_ids = [] # list of parent id numbers
     child_clue_ids = []
     num_parents = 0
     clue_id = 0 # clue id, never changes after initial creation (not updated ever for easy identification)
-
 
 class Story:
     title = ''
@@ -138,7 +138,7 @@ def save_story(request):
         for x in temp_story.Clues:
             x.clue_text = request.POST['clue' + str(x.clue_num) + '_text']
             x.clue_img_url = request.POST['clue' + str(x.clue_num) + '_img_url']
-            x.clue_parents = request.POST['clue' + str(x.clue_num) + '_clue_parents']
+            x.parent_clues = request.POST['clue' + str(x.clue_num) + '_clue_parents']
         ######################################################################
 
         # create a story object with the title,synopsis, and clue amounts from the temp_story
@@ -163,12 +163,12 @@ def save_story(request):
                     DBList[entry].clue_num = clue.clue_num
                     DBList[entry].clue_text = clue.clue_text
                     DBList[entry].clue_img_url = clue.clue_img_url
-                    DBList[entry].parent_list = save_parent_list(clue.clue_parents)
+                    DBList[entry].parent_list = save_parent_list(clue.parent_clues)
                     DBList[entry].save(update_fields=['clue_num', 'clue_text', 'clue_img_url', 'parent_list'])
                     entry += 1
                 else:
                     s.clue_set.create(clue_id=clue.clue_id, clue_num=clue.clue_num, clue_text=clue.clue_text,
-                                      clue_img_url=clue.clue_img_url, parent_list=save_parent_list(clue.clue_parents))
+                                      clue_img_url=clue.clue_img_url, parent_list=save_parent_list(clue.parent_clues))
                 ######################################################################
             # Deletes clues from the database when the list of current clues is smaller then the list within the
             # database
@@ -185,7 +185,7 @@ def save_story(request):
             s.save()
             for clue in temp_story.Clues:
                 s.clue_set.create(clue_id=clue.clue_id, clue_num=clue.clue_num, clue_text=clue.clue_text,
-                                  clue_img_url=clue.clue_img_url, parent_list=save_parent_list(clue.clue_parents))
+                                  clue_img_url=clue.clue_img_url, parent_list=save_parent_list(clue.parent_clues))
         ######################################################################
     return HttpResponseRedirect(reverse('refresh_story'))
 
@@ -208,13 +208,14 @@ def add_clue(request):
         temp_clue = Clue()
         temp_clue.clue_num = temp_story.clue_amount
         temp_clue.clue_id = temp_story.clue_id_tracker
+        temp_clue.child_clue_ids = []
         ######################################################################
 
         # Reads in the contents of existing clues in the storyboard and stores the content to the stories clues list
         for x in temp_story.Clues:
             x.clue_text = request.POST['clue' + str(x.clue_num) + '_text']
             x.clue_img_url = request.POST['clue' + str(x.clue_num) + '_img_url']
-            x.clue_parents = request.POST['clue' + str(x.clue_num) + '_clue_parents']
+            x.parent_clues = request.POST['clue' + str(x.clue_num) + '_clue_parents']
         ######################################################################
 
         # Adds an empty clue to the end of the stories clue list
@@ -298,6 +299,7 @@ def refresh_story(request):
             x.clue_text = request.POST['clue' + str(x.clue_num) + '_text']
             x.clue_img_url = request.POST['clue' + str(x.clue_num) + '_img_url']
             x.clue_parents = request.POST['clue' + str(x.clue_num) + '_clue_parents']
+            x.parent_clues = x.clue_parents
         ######################################################################
 
     return HttpResponseRedirect(reverse('storyboard'))
@@ -312,21 +314,53 @@ def return_to_editor(request):
 
 # allows user to access visual clues page
 def display_clues(request):
+    
+    # turn parent clues into a list of ints
+ 
+    for clue in temp_story.Clues:
 
-    if request.method == 'POST':
-        
-        # determine the child clue ids
-        for parent_clue in temp_story.Clues:
+        if clue.parent_clues != '':
+            temp_list = clue.parent_clues.split(',')
+            for i in range(len(temp_list)):   
+                try:
+                    clue.parent_clue_ids.append(int(temp_list[i]))                                
+                except:
+                    pass
 
-            # make sure ids are not in there twice
-            parent_clue.child_clue_ids = []
+    for child_clue in temp_story.Clues:
 
-            # check each clue in the story to see if it is a child clue of the parent
-            for child_clue in temp_story.Clues:
+        for parent_clue in temp_story.Clues:     
+            
+            #if ((parent_clue.clue_id in child_clue.parent_clue_ids)  & (parent_clue.clue_id != child_clue.clue_id) & (child_clue.clue_id not in parent_clue.child_clue_ids)):
+            parent_clue.child_clue_ids.append(len(child_clue.parent_clue_ids))
 
-                # add it to the list of child clues if it is one
-                if (parent_clue.clue_id in child_clue.parent_clue_ids):
-                    parent_clue.child_clue_ids.append(child_clue.clue_id)
+       # for i in parent_names:
+            
+            
+        #    parent_object = Clue.objects.filter(clue_id = i).first()
+         #   parent_object.child_clue_ids.append(child_clue.clue_id)
+          #  parent_object.save()
+
+    # determine the child clue ids
+  #  for parent_clue in temp_story.Clues:
+
+        # make sure ids are not in there twice
+   #     parent_clue.child_clue_ids = []
+
+        # check each clue in the story to see if it is a child clue of the parent
+    #    for child_clue in temp_story.Clues:
+
+     #       for parent_id in child_clue.parent_clue_ids:
+       #         if ((parent_id == parent_clue.clue_id) & (parent_clue.clue_id != child_clue.clue_id) & (child_clue.clue_id not in parent_clue.child_clue_ids)):
+      #              parent_clue.child_clue_ids.append(child_clue.clue_id)
+            
+            
+            
+            # add it to the list of child clues if it is one 
+           # parent_clue.child_clue_ids.append(len(child_clue.parent_clue_ids))
+           # if (parent_clue.clue_id in child_clue.parent_clue_ids):
+            #    parent_clue.child_clue_ids.append(0) #)
+           
 
     return render(request, 'display_clues.html', context={'title': temp_story.title, 'synopsis': temp_story.synopsis,
                                                        'clues': temp_story.Clues})
