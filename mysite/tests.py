@@ -246,6 +246,34 @@ class MySeleniumTests(StaticLiveServerTestCase):
 
         assertEquals(driver.getCurrentUrl(), (self.live_server_url, '/display_clues/'))
 
+    # checks that the clues are displaying the child clues
+    # does require the clues be physically looked at
+    # cannot fully test as the feature does not work
+     def test_display_clues_with_refresh(self):
+
+        # go back to storyboard editor
+        self.selenium.get('%s%s' % (self.live_server_url, '/return_to_editor/'))
+
+        # Adds a new clue that only contains text leaving the image blank
+        self.selenium.find_element_by_id('add').click()
+        time.sleep(1)
+        self.selenium.find_element_by_id('clue1_text').send_keys('This is clue 1')
+        time.sleep(1)
+
+        # Adds a new clue that only contains text leaving the image blank
+        self.selenium.find_element_by_id('add').click()
+        time.sleep(1)
+
+        # Adds a new clue that only contains text leaving the image blank
+        self.selenium.find_element_by_id('refresh').click()
+        time.sleep(1)
+
+        # Adds a new clue that only contains text leaving the image blank
+        self.selenium.find_element_by_id('displayclues').click()
+        time.sleep(1)
+
+        assertEquals(driver.getCurrentUrl(), (self.live_server_url, '/display_clues/'))
+
 
 
         

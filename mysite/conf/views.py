@@ -316,10 +316,10 @@ def return_to_editor(request):
 def display_clues(request):
     
     # turn parent clues into a list of ints
- 
     for clue in temp_story.Clues:
 
         if clue.parent_clues != '':
+            # split into indivdual ints
             temp_list = clue.parent_clues.split(',')
             for i in range(len(temp_list)):   
                 try:
@@ -327,39 +327,13 @@ def display_clues(request):
                 except:
                     pass
 
+    # look through each 
     for child_clue in temp_story.Clues:
 
         for parent_clue in temp_story.Clues:     
             
             #if ((parent_clue.clue_id in child_clue.parent_clue_ids)  & (parent_clue.clue_id != child_clue.clue_id) & (child_clue.clue_id not in parent_clue.child_clue_ids)):
             parent_clue.child_clue_ids.append(len(child_clue.parent_clue_ids))
-
-       # for i in parent_names:
-            
-            
-        #    parent_object = Clue.objects.filter(clue_id = i).first()
-         #   parent_object.child_clue_ids.append(child_clue.clue_id)
-          #  parent_object.save()
-
-    # determine the child clue ids
-  #  for parent_clue in temp_story.Clues:
-
-        # make sure ids are not in there twice
-   #     parent_clue.child_clue_ids = []
-
-        # check each clue in the story to see if it is a child clue of the parent
-    #    for child_clue in temp_story.Clues:
-
-     #       for parent_id in child_clue.parent_clue_ids:
-       #         if ((parent_id == parent_clue.clue_id) & (parent_clue.clue_id != child_clue.clue_id) & (child_clue.clue_id not in parent_clue.child_clue_ids)):
-      #              parent_clue.child_clue_ids.append(child_clue.clue_id)
-            
-            
-            
-            # add it to the list of child clues if it is one 
-           # parent_clue.child_clue_ids.append(len(child_clue.parent_clue_ids))
-           # if (parent_clue.clue_id in child_clue.parent_clue_ids):
-            #    parent_clue.child_clue_ids.append(0) #)
            
 
     return render(request, 'display_clues.html', context={'title': temp_story.title, 'synopsis': temp_story.synopsis,
