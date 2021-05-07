@@ -20,6 +20,82 @@
         }
 
     </style>
+
+    <meta charset="UTF-8">
+    <title>Visual Display</title>
+</head>
+<body>
+
+    <!-- allows user to logout from display clues page -->
+    <form method="post" style="text-align: right;">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <!-- Logout Button, redirects to the login page after logging out the user-->
+        <a href="{% url 'signout'%}"><button type="button" class="btn btn-default" id='logoutButton'>Log Out</button></a>
+    </form>
+
+
+    <!-- displays name at top of webpage-->
+    <div class="Page_Title">
+        <label class="Page_Title"><b>Visually Connected Clue Page</b></label>
+    </div>
+
+
+    <!-- displays instructions for user-->
+    <div class="container" style="text-align: center;">
+        The existing clues can be seen connected below. To edit, add, or remove clues, please return to the Storyboard Editor. <br/>
+    </div>
+    
+    <!-- for now, only holds the button to return to the editor. Can hold more later-->
+    <div class="Button_Bar">
+        <button id="returnToEditor" onclick="return_to_editor();" type="button">Return to Storyboard Editor</button>
+        <!--<button id="displayOnPage" onclick="display_clues_on_page();" type="button">Display Clues</button>-->
+    </div>
+
+    <!-- hopefully will loop through all of the clues and display their relevant information-->
+    <!--<div class="Clue_Container">-->
+
+        <div id="cluebox" style='padding:6px; color: black; background-color: #ffffff; border: black 2px solid; width: 600px; border-radius: 20px; float: left;'>
+                <div id="clueboxheader">Clue ID: 1</div>
+                <p>HELLO MOVING POWERS</p>
+        </div>
+
+        </br>
+        </br>
+        </br>
+        </br>
+
+        {% for clue in clues %}
+
+            <div style='padding:6px; color: black; background-color: white; border: black 2px solid; width: 600px; border-radius: 20px; float: left;'>
+                <div>Clue ID: {{clue.clue_id}}</div>
+
+                <p> <!--style='padding:6px; color: black; background-color: white; border: black 2px solid; width: 600px; border-radius: 20px; float: left;'>-->
+
+                    <!-- display clue id number-->
+                    <!--<b>Clue ID: {{clue.clue_id}}</b>-->
+
+                    </br>
+
+                    <!-- display clue text -->
+                    <b>Clue Content: {{clue.clue_text}}</b>
+
+                    <!-- display clue image -->
+                    <b>{{clue.clue_img_url}}</b>
+                    <!-- <img class="clue_img" src="{{clue.clue_img_url}}" height="170px"> -->
+                    </br>
+
+                    <!-- display number of parents -->
+                    <b>Number of Parent Clues: {{clue.num_parents}}</b>
+
+                </p>
+
+            </div>
+
+        {% endfor %}
+
+    <!--</div>-->
+
     <script>
         // where the functions will go
 
@@ -66,7 +142,7 @@
                 document.onmousemove = null;
               }
         }
-               
+
         // This function should redirect to the page that displaays clues.
         function return_to_editor() {
 
@@ -81,80 +157,7 @@
         }
 
     </script>
-    <meta charset="UTF-8">
-    <title>Visual Display</title>
-</head>
-<body>
-
-    <!-- allows user to logout from display clues page -->
-    <form method="post" style="text-align: right;">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <!-- Logout Button, redirects to the login page after logging out the user-->
-        <a href="{% url 'signout'%}"><button type="button" class="btn btn-default" id='logoutButton'>Log Out</button></a>
-    </form>
-
-
-    <!-- displays name at top of webpage-->
-    <div class="Page_Title">
-        <label class="Page_Title"><b>Visually Connected Clue Page</b></label>
-    </div>
-
-
-    <!-- displays instructions for user-->
-    <div class="container" style="text-align: center;">
-        The existing clues can be seen connected below. To edit, add, or remove clues, please return to the Storyboard Editor. <br/>
-    </div>
-    
-    <!-- for now, only holds the button to return to the editor. Can hold more later-->
-    <div class="Button_Bar">
-        <button id="returnToEditor" onclick="return_to_editor();" type="button">Return to Storyboard Editor</button>
-        <!--<button id="displayOnPage" onclick="display_clues_on_page();" type="button">Display Clues</button>-->
-    </div>
-
-    <!-- hopefully will loop through all of the clues and display their relevant information-->
-    <!--<div class="Clue_Container">-->
-
-        <!--<div id="cluebox" style='padding:6px; color: black; background-color: white; border: black 2px solid; width: 600px; border-radius: 20px; float: left;'>
-                <div id="clueboxheader">Clue ID: 1</div>
-                <p>HELLO MOVING POWERS</p>
-        </div>
-
-        </br>
-        </br>
-        </br>
-        </br>-->
-
-        {% for clue in clues %}
-
-            <div class="cluebox" style='padding:6px; color: black; background-color: white; border: black 2px solid; width: 600px; border-radius: 20px; float: left;'>
-                <div class="clueboxheader">Clue ID: {{clue.clue_id}}</div>
-
-                <p> <!--style='padding:6px; color: black; background-color: white; border: black 2px solid; width: 600px; border-radius: 20px; float: left;'>-->
-
-                    <!-- display clue id number-->
-                    <!--<b>Clue ID: {{clue.clue_id}}</b>-->
-
-                    </br>
-
-                    <!-- display clue text -->
-                    <b>Clue Content: {{clue.clue_text}}</b>
-
-                    <!-- display clue image -->
-                    <b>{{clue.clue_img_url}}</b>
-                    <!-- <img class="clue_img" src="{{clue.clue_img_url}}" height="170px"> -->
-                    </br>
-
-                    <!-- display number of parents -->
-                    <b>Number of Parent Clues: {{clue.num_parents}}</b>
-
-                </p>
-
-            </div>
-
-        {% endfor %}
-
-    <!--</div>-->
 
 </body>
+
 </html>
