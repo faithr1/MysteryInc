@@ -89,7 +89,7 @@
             name="clue{{clue.clue_num}}_clue_children">
 
             {% for clue_x in clues %}
-                {% for parent in clue_x.clue_parents %}
+                {% for parent in clue_x.parent_clues %}
                     <script>
                         if({{parent}} == {{clue.clue_num}}){
                             document.write("Clue ",{{clue_x.clue_num}},",")
