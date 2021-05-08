@@ -349,7 +349,8 @@ def return_to_editor(request):
 
 # allows user to access visual clues page
 def display_clues(request):
-    return render(request, 'display_clues.html', context={})
+    return render(request, 'display_clues.html', context={'title': temp_story.title, 'synopsis': temp_story.synopsis,
+                                                       'clues': temp_story.Clues})
 
 
 # create a printable html that displays clue information in a printable format
